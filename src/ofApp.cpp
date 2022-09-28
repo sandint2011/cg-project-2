@@ -5,6 +5,10 @@
 void ofApp::setup()
 {
 	ofDisableArbTex();
+	ofEnableDepthTest();
+
+	mesh.load("dragon.ply");
+	assert(mesh.getVertices().size() > 0);
 
 	reloadShaders();
 }
@@ -15,7 +19,7 @@ void ofApp::reloadShaders()
 	if (needsShaderReload)
 	{
 		// Reload all shaders here.
-		// shader.load("shader.vert", "shader.frag");
+		shader.load("shader.vert", "shader.frag");
 
 		needsShaderReload = false;
 	}
@@ -30,7 +34,17 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-
+	float aspectRatio { static_cast<float>(ofGetViewportWidth()) / static_cast<float>(ofGetViewportHeight()) };
+	
+	shader.begin();
+	shader.setUniformMatrix4f(
+		"transform", 
+		glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f)
+		* glm::translate(glm::vec3(0, 0, -5))
+		* glm::rotate(glm::radians(45.0f), glm::vec3(1.0, 1.0, 1.0))
+	);
+	mesh.draw();
+	shader.end();
 }
 
 //--------------------------------------------------------------

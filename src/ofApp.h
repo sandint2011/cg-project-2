@@ -23,6 +23,8 @@ public:
 	void gotMessage(ofMessage msg);
 
 private:
+	ofMesh mesh;
+	ofShader shader;
 
 	// Helper functions.
 	void buildMesh(ofMesh& mesh, glm::vec3 pos, float width, float height);
