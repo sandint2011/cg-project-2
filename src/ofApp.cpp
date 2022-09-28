@@ -8,7 +8,7 @@ void ofApp::setup()
 	ofEnableDepthTest();
 
 	mesh.load("dragon.ply");
-	assert(mesh.getVertices().size() > 0);
+	assert(mesh.getNumVertices() > 0);
 
 	reloadShaders();
 }
