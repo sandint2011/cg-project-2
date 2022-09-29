@@ -13,7 +13,7 @@ void ofApp::setup()
 	ofDisableArbTex();
 	ofEnableDepthTest();
 
-	mesh.load("sord2.ply");
+	mesh.load("sword3.ply");
 	assert(mesh.getNumVertices() > 0);
 
 	reloadShaders();
