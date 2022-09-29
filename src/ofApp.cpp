@@ -13,7 +13,7 @@ void ofApp::setup()
 	ofDisableArbTex();
 	ofEnableDepthTest();
 
-	mesh.load("sword3.ply");
+	mesh.load("lego.ply");
 	assert(mesh.getNumVertices() > 0);
 
 	reloadShaders();
@@ -49,7 +49,7 @@ void ofApp::draw()
 		glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f)
 		* glm::translate(glm::vec3(0, 0, -5))
 		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
-		* glm::scale(glm::vec3(1, 1, 1))
+		* glm::scale(glm::vec3(0.1, 0.1, 0.1))
 	);
 
 	shader.setUniform3f("cameraPosition", cameraPosition);
