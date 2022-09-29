@@ -13,7 +13,7 @@ void ofApp::setup()
 	ofDisableArbTex();
 	ofEnableDepthTest();
 
-	mesh.load("torus.ply");
+	mesh.load("sord2.ply");
 	assert(mesh.getNumVertices() > 0);
 
 	reloadShaders();
@@ -48,7 +48,7 @@ void ofApp::draw()
 		glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f)
 		* glm::translate(glm::vec3(0, 0, -5))
 		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
-		* glm::scale(glm::vec3(3, 3, 3))
+		* glm::scale(glm::vec3(1, 1, 1))
 	);
 	mesh.draw();
 	shader.end();
