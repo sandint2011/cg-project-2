@@ -61,6 +61,58 @@ void ofApp::keyPressed(int key)
 	{
 		needsShaderReload = true;
 	}
+
+	// W A S D
+	if (key == 'w')
+	{
+
+	}
+	else if (key == 'W')
+	{
+
+	}
+	if (key == 'a')
+	{
+
+	}
+	else if (key == 'A')
+	{
+
+	}
+	if (key == 's')
+	{
+
+	}
+	else if (key == 'S')
+	{
+
+	}
+	if (key == 'd')
+	{
+
+	}
+	else if (key == 'D')
+	{
+
+	}
+
+	// Q E
+	if (key == 'q')
+	{
+
+	}
+	else if (key == 'Q')
+	{
+
+	}
+	if (key == 'e')
+	{
+
+	}
+	else if (key == 'E')
+	{
+
+	}
 }
 
 //--------------------------------------------------------------
