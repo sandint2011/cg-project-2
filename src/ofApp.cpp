@@ -43,6 +43,8 @@ void ofApp::draw()
 	float aspectRatio { static_cast<float>(ofGetViewportWidth()) / static_cast<float>(ofGetViewportHeight()) };
 	
 	shader.begin();
+
+
 	shader.setUniformMatrix4f(
 		"transform", 
 		glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f)
@@ -50,6 +52,9 @@ void ofApp::draw()
 		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
 		* glm::scale(glm::vec3(1, 1, 1))
 	);
+
+	shader.setUniform3f("cameraPosition", cameraPosition);
+
 	mesh.draw();
 	shader.end();
 }
@@ -62,56 +67,32 @@ void ofApp::keyPressed(int key)
 		needsShaderReload = true;
 	}
 
-	// W A S D
-	if (key == 'w')
-	{
+	const float moveSpeed = 0.25;
 
+	// X Y Z - Move camera along axis. Lowercase for positive, capital for negative.
+	if (key == 'x')
+	{
+		cameraPosition.x += moveSpeed;
 	}
-	else if (key == 'W')
+	else if (key == 'X')
 	{
-
+		cameraPosition.x -= moveSpeed;
 	}
-	if (key == 'a')
+	if (key == 'y')
 	{
-
+		cameraPosition.y += moveSpeed;
 	}
-	else if (key == 'A')
+	else if (key == 'Y')
 	{
-
+		cameraPosition.y -= moveSpeed;
 	}
-	if (key == 's')
+	if (key == 'z')
 	{
-
+		cameraPosition.z += moveSpeed;
 	}
-	else if (key == 'S')
+	else if (key == 'Z')
 	{
-
-	}
-	if (key == 'd')
-	{
-
-	}
-	else if (key == 'D')
-	{
-
-	}
-
-	// Q E
-	if (key == 'q')
-	{
-
-	}
-	else if (key == 'Q')
-	{
-
-	}
-	if (key == 'e')
-	{
-
-	}
-	else if (key == 'E')
-	{
-
+		cameraPosition.z -= moveSpeed;
 	}
 }
 

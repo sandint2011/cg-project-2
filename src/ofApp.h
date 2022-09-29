@@ -26,6 +26,9 @@ private:
 	ofMesh mesh;
 	ofShader shader;
 
+	glm::vec3 cameraPosition = glm::vec3(0, 0, 0);
+	// Gotta ask professor about rotation since a vec3 isn't good for rotations and we haven't learned about quaternions.
+
 	// Helper functions.
 	void buildMesh(ofMesh& mesh, glm::vec3 pos, float width, float height);
 	
