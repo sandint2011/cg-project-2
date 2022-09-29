@@ -13,7 +13,7 @@ void ofApp::setup()
 	ofDisableArbTex();
 	ofEnableDepthTest();
 
-	mesh.load("lego.ply");
+	mesh.load("lego-old-blender.ply");
 	assert(mesh.getNumVertices() > 0);
 
 	reloadShaders();
