@@ -44,7 +44,6 @@ void ofApp::draw()
 	
 	shader.begin();
 
-
 	shader.setUniformMatrix4f(
 		"transform", 
 		glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f)
