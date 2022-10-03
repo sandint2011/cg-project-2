@@ -46,7 +46,7 @@ void ofApp::draw()
 	float aspectRatio { static_cast<float>(ofGetViewportWidth()) / static_cast<float>(ofGetViewportHeight()) };
 	
 	// Movel-view-projection.
-	glm::mat4 model;
+	glm::mat4 model; // Set for each mesh individually.
 	glm::mat4 view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);;
 	glm::mat4 projection = glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f);
 
@@ -54,23 +54,21 @@ void ofApp::draw()
 	shader.setUniform3f("cameraPosition", cameraPosition);
 
 	// Lego.
-	shader.setUniformMatrix4f(
-		"transform", 
-		glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f)
-		* glm::translate(glm::vec3(0, 0, -5))
+	model = (
+		glm::translate(glm::vec3(0, 0, -5))
 		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
 		* glm::scale(glm::vec3(0.1, 0.1, 0.1))
 	);
+	shader.setUniformMatrix4f("mvp", projection * view * model);
 	legoMesh.draw();
 
 	// Sword.
-	shader.setUniformMatrix4f(
-		"transform",
-		glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f)
-		* glm::translate(glm::vec3(3, -2, -5))
+	model = (
+		glm::translate(glm::vec3(3, -2, -5))
 		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
 		* glm::scale(glm::vec3(.5,.5, .5))
 	);
+	shader.setUniformMatrix4f("mvp", projection * view * model);
 	swordMesh.draw();
 
 	shader.end();
@@ -84,37 +82,37 @@ void ofApp::keyPressed(int key)
 		needsShaderReload = true;
 	}
 
-	const float moveSpeed = 0.25;
+	const float cameraSpeed = 0.05;
 	const float dt = ofGetLastFrameTime();
 
 	// Forward / backward.
 	if (key == 'w')
 	{
-		//cameraPosition += glm::vec3(glm::sin(cameraHead), 0, cos(cameraPitch)) * dt * moveSpeed;
+		cameraPosition += cameraFront * cameraSpeed * dt;
 	}
 	if (key == 's')
 	{
-
+		cameraPosition -= cameraFront * cameraSpeed * dt;
 	}
 
 	// Left / right.
 	if (key == 'a')
 	{
-		
+		cameraPosition -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed * dt;
 	}
 	if (key == 'd')
 	{
-
+		cameraPosition += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed * dt;
 	}
 
 	// Up / down.
 	if (key == 'q')
 	{
-		
+		cameraPosition -= glm::normalize(glm::cross(cameraUp, cameraFront)) * cameraSpeed * dt;
 	}
 	if (key == 'e')
 	{
-
+		cameraPosition += glm::normalize(glm::cross(cameraUp, cameraFront)) * cameraSpeed * dt;
 	}
 
 	// Pitch up / down.
