@@ -108,11 +108,11 @@ void ofApp::keyPressed(int key)
 	// Up / down.
 	if (key == 'q')
 	{
-		cameraPosition -= glm::normalize(glm::cross(cameraUp, cameraFront)) * cameraSpeed * dt;
+		cameraPosition += cameraUp * cameraSpeed * dt;
 	}
 	if (key == 'e')
 	{
-		cameraPosition += glm::normalize(glm::cross(cameraUp, cameraFront)) * cameraSpeed * dt;
+		cameraPosition -= cameraUp * cameraSpeed * dt;
 	}
 
 	// Pitch up / down.
