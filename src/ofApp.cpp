@@ -7,22 +7,6 @@
 // ASCII format
 // Triangulated
 
-glm::vec3 ofApp::cameraDirection()
-{
-	return glm::normalize(cameraPosition - cameraTarget);
-}
-
-glm::vec3 ofApp::cameraRight()
-{
-	glm::vec3 up = glm::vec3(0, 1, 0);
-	return glm::normalize(glm::cross(up, cameraDirection()));
-}
-
-glm::vec3 ofApp::cameraUp()
-{
-	return glm::cross(cameraDirection(), cameraRight());
-}
-
 //--------------------------------------------------------------
 void ofApp::setup()
 {
@@ -61,8 +45,15 @@ void ofApp::draw()
 {
 	float aspectRatio { static_cast<float>(ofGetViewportWidth()) / static_cast<float>(ofGetViewportHeight()) };
 	
-	shader.begin();
+	// Movel-view-projection.
+	glm::mat4 model;
+	glm::mat4 view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);;
+	glm::mat4 projection = glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f);
 
+	shader.begin();
+	shader.setUniform3f("cameraPosition", cameraPosition);
+
+	// Lego.
 	shader.setUniformMatrix4f(
 		"transform", 
 		glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f)
@@ -70,11 +61,9 @@ void ofApp::draw()
 		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
 		* glm::scale(glm::vec3(0.1, 0.1, 0.1))
 	);
-
-	shader.setUniform3f("cameraPosition", cameraPosition);
-
 	legoMesh.draw();
 
+	// Sword.
 	shader.setUniformMatrix4f(
 		"transform",
 		glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f)
@@ -82,9 +71,6 @@ void ofApp::draw()
 		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
 		* glm::scale(glm::vec3(.5,.5, .5))
 	);
-
-	shader.setUniform3f("cameraPosition", cameraPosition);
-
 	swordMesh.draw();
 
 	shader.end();
@@ -101,35 +87,54 @@ void ofApp::keyPressed(int key)
 	const float moveSpeed = 0.25;
 	const float dt = ofGetLastFrameTime();
 
+	// Forward / backward.
 	if (key == 'w')
 	{
 		//cameraPosition += glm::vec3(glm::sin(cameraHead), 0, cos(cameraPitch)) * dt * moveSpeed;
 	}
+	if (key == 's')
+	{
 
-	// X Y Z - Move camera along axis. Lowercase for positive, capital for negative.
-	if (key == 'x')
-	{
-		cameraPosition.x += moveSpeed;
 	}
-	else if (key == 'X')
+
+	// Left / right.
+	if (key == 'a')
 	{
-		cameraPosition.x -= moveSpeed;
+		
 	}
-	if (key == 'y')
+	if (key == 'd')
 	{
-		cameraPosition.y += moveSpeed;
+
 	}
-	else if (key == 'Y')
+
+	// Up / down.
+	if (key == 'q')
 	{
-		cameraPosition.y -= moveSpeed;
+		
 	}
-	if (key == 'z')
+	if (key == 'e')
 	{
-		cameraPosition.z += moveSpeed;
+
 	}
-	else if (key == 'Z')
+
+	// Pitch up / down.
+	if (key == 'W')
 	{
-		cameraPosition.z -= moveSpeed;
+		
+	}
+	else if (key == 'S')
+	{
+
+	}
+
+	// Head left / right.
+	if (key == 'A')
+	{
+		
+	}
+	else if (key == 'D')
+	{
+
 	}
 }
 

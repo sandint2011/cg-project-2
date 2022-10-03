@@ -28,12 +28,8 @@ private:
 	ofShader shader;
 
 	glm::vec3 cameraPosition = glm::vec3(0, 0, 0);
-	glm::vec3 cameraTarget = glm::vec3(0, 0, 0);
-
-	// Camera functions.
-	glm::vec3 ofApp::cameraDirection(); // Technically a backwards direction.
-	glm::vec3 ofApp::cameraRight();
-	glm::vec3 ofApp::cameraUp();
+	glm::vec3 cameraFront = glm::vec3(0, 0, -1);
+	glm::vec3 cameraUp = glm::vec3(0, 1, 0);
 
 	// Helper functions.
 	void buildMesh(ofMesh& mesh, glm::vec3 pos, float width, float height);
