@@ -199,6 +199,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\..\sordFinal.ply" />
     <None Include="bin\data\shader.frag" />
     <None Include="bin\data\shader.vert" />
   </ItemGroup>

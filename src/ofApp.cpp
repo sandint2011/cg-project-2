@@ -13,8 +13,11 @@ void ofApp::setup()
 	ofDisableArbTex();
 	ofEnableDepthTest();
 
-	mesh.load("lego-old-blender.ply");
-	assert(mesh.getNumVertices() > 0);
+	legoMesh.load("lego-old-blender.ply");
+	swordMesh.load("sordFinal.ply");
+
+	assert(legoMesh.getNumVertices() > 0);
+	assert(swordMesh.getNumVertices() > 0);
 
 	reloadShaders();
 }
@@ -54,7 +57,28 @@ void ofApp::draw()
 
 	shader.setUniform3f("cameraPosition", cameraPosition);
 
-	mesh.draw();
+	legoMesh.draw();
+
+
+	shader.setUniformMatrix4f(
+		"transform",
+		glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f)
+		* glm::translate(glm::vec3(3, -2, -5))
+		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
+		* glm::scale(glm::vec3(.5,.5, .5))
+	);
+
+	shader.setUniform3f("cameraPosition", cameraPosition);
+
+	swordMesh.draw();
+
+
+
+
+
+
+
+
 	shader.end();
 }
 

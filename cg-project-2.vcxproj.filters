@@ -37,5 +37,6 @@
     <None Include="bin\data\shader.vert">
       <Filter>src</Filter>
     </None>
+    <None Include="..\..\..\..\..\sordFinal.ply" />
   </ItemGroup>
 </Project>

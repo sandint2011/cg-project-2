@@ -23,7 +23,8 @@ public:
 	void gotMessage(ofMessage msg);
 
 private:
-	ofMesh mesh;
+	ofMesh legoMesh;
+	ofMesh swordMesh;
 	ofShader shader;
 
 	glm::vec3 cameraPosition = glm::vec3(0, 0, 0);
