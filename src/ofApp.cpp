@@ -7,6 +7,22 @@
 // ASCII format
 // Triangulated
 
+glm::vec3 ofApp::cameraDirection()
+{
+	return glm::normalize(cameraPosition - cameraTarget);
+}
+
+glm::vec3 ofApp::cameraRight()
+{
+	glm::vec3 up = glm::vec3(0, 1, 0);
+	return glm::normalize(glm::cross(up, cameraDirection()));
+}
+
+glm::vec3 ofApp::cameraUp()
+{
+	return glm::cross(cameraDirection(), cameraRight());
+}
+
 //--------------------------------------------------------------
 void ofApp::setup()
 {
@@ -59,7 +75,6 @@ void ofApp::draw()
 
 	legoMesh.draw();
 
-
 	shader.setUniformMatrix4f(
 		"transform",
 		glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f)
@@ -71,13 +86,6 @@ void ofApp::draw()
 	shader.setUniform3f("cameraPosition", cameraPosition);
 
 	swordMesh.draw();
-
-
-
-
-
-
-
 
 	shader.end();
 }
@@ -91,6 +99,12 @@ void ofApp::keyPressed(int key)
 	}
 
 	const float moveSpeed = 0.25;
+	const float dt = ofGetLastFrameTime();
+
+	if (key == 'w')
+	{
+		//cameraPosition += glm::vec3(glm::sin(cameraHead), 0, cos(cameraPitch)) * dt * moveSpeed;
+	}
 
 	// X Y Z - Move camera along axis. Lowercase for positive, capital for negative.
 	if (key == 'x')
