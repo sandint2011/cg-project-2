@@ -51,7 +51,6 @@ void ofApp::draw()
 	glm::mat4 projection = glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 10.0f);
 
 	shader.begin();
-	shader.setUniform3f("cameraPosition", cameraPosition);
 
 	// Lego.
 	model = (
@@ -114,26 +113,6 @@ void ofApp::keyPressed(int key)
 	{
 		cameraPosition -= cameraUp * cameraSpeed * dt;
 	}
-
-	// Pitch up / down.
-	if (key == 'W')
-	{
-		
-	}
-	else if (key == 'S')
-	{
-
-	}
-
-	// Head left / right.
-	if (key == 'A')
-	{
-		
-	}
-	else if (key == 'D')
-	{
-
-	}
 }
 
 //--------------------------------------------------------------
@@ -145,13 +124,35 @@ void ofApp::keyReleased(int key)
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y )
 {
+	// Get the mouse's change ins position since last frame.
+	float dx = x - lastMouseX;
+	float dy = y - lastMouseY;
+	lastMouseX = x;
+	lastMouseY = y;
 
+	// Apply sensitivity to mouse movement.
+	const float sensitivity = 0.1f;
+	dx *= sensitivity;
+	dy *= sensitivity;
+
+	// Store camera rotation in radians.
+	cameraHead += glm::radians(dx);
+	cameraPitch += glm::radians(dy);
+
+	// Clamp the pitch.
+	cameraPitch = CLAMP(cameraPitch, glm::radians(-89.0f), glm::radians(89.0f));
+
+	// Calculate camera direction.
+	cameraDirection.x = cos(cameraHead - glm::radians(90.0f)) * cos(cameraPitch); // Sutract 90 degrees from head because otherwise 0 radians points at +X instead of -Z like we want.
+	cameraDirection.y = -sin(cameraPitch); // Negative because otherwise we're doing inverted Y and that's gross.
+	cameraDirection.z = sin(cameraHead - glm::radians(90.0f)) * cos(cameraPitch); // Sutract 90 degrees from head because otherwise 0 radians points at +X instead of -Z like we want.
+	cameraFront = glm::normalize(cameraDirection);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button)
 {
-
+	
 }
 
 //--------------------------------------------------------------
