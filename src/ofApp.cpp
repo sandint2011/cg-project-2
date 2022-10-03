@@ -82,7 +82,7 @@ void ofApp::keyPressed(int key)
 		needsShaderReload = true;
 	}
 
-	const float cameraSpeed = 0.05;
+	const float cameraSpeed = 10;
 	const float dt = ofGetLastFrameTime();
 
 	// Forward / backward.
