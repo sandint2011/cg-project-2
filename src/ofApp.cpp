@@ -131,7 +131,7 @@ void ofApp::mouseMoved(int x, int y )
 	lastMouseY = y;
 
 	// Apply sensitivity to mouse movement.
-	const float sensitivity = 0.1f;
+	const float sensitivity = 0.25f;
 	dx *= sensitivity;
 	dy *= sensitivity;
 
