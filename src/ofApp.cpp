@@ -100,8 +100,6 @@ void ofApp::draw()
 		swordVBO.drawElements(GL_TRIANGLES, swordVBO.getNumIndices());
 	}
 
-	
-
 	shader.end();
 }
 
