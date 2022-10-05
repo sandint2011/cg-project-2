@@ -19,6 +19,9 @@ void ofApp::setup()
 	assert(legoMesh.getNumVertices() > 0);
 	assert(swordMesh.getNumVertices() > 0);
 
+	legoVBO.setMesh(legoMesh, GL_STATIC_DRAW);
+	swordVBO.setMesh(swordMesh, GL_STATIC_DRAW);
+
 	reloadShaders();
 }
 
@@ -59,7 +62,8 @@ void ofApp::draw()
 		* glm::scale(glm::vec3(0.1, 0.1, 0.1))
 	);
 	shader.setUniformMatrix4f("mvp", projection * view * model);
-	legoMesh.draw();
+	//legoMesh.draw();
+	legoVBO.drawElements(GL_TRIANGLES, legoVBO.getNumIndices());
 
 	// Sword.
 	model = (
@@ -68,7 +72,8 @@ void ofApp::draw()
 		* glm::scale(glm::vec3(.5,.5, .5))
 	);
 	shader.setUniformMatrix4f("mvp", projection * view * model);
-	swordMesh.draw();
+	//swordMesh.draw();
+	swordVBO.drawElements(GL_TRIANGLES, swordVBO.getNumIndices());
 
 	shader.end();
 }

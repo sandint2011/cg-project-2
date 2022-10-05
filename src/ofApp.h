@@ -26,6 +26,9 @@ private:
 	ofMesh legoMesh;
 	ofMesh swordMesh;
 
+	ofVbo legoVBO;
+	ofVbo swordVBO;
+
 	ofShader shader;
 
 	// Camera position.
