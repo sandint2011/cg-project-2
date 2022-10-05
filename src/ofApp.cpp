@@ -47,7 +47,9 @@ void ofApp::update()
 void ofApp::draw()
 {
 	const float nearClip = 0.1f;
-	const float farClip = 15.0f;
+	const float farClip = 50.0f;
+	const float startFade = farClip * 0.85;
+	const float endFade = farClip - 1.0f;
 	
 	float aspectRatio { static_cast<float>(ofGetViewportWidth()) / static_cast<float>(ofGetViewportHeight()) };
 	
@@ -58,8 +60,9 @@ void ofApp::draw()
 
 	shader.begin();
 
-	shader.setUniform1f("nearClip", nearClip);
-	shader.setUniform1f("farClip", farClip);
+	shader.setUniform3f("cameraPosition", cameraPosition);
+	shader.setUniform1f("startFade", startFade);
+	shader.setUniform1f("endFade", endFade);
 
 	// Lego.
 	model = (
@@ -67,6 +70,7 @@ void ofApp::draw()
 		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
 		* glm::scale(glm::vec3(0.1, 0.1, 0.1))
 	);
+	shader.setUniformMatrix4f("mv", view * model);
 	shader.setUniformMatrix4f("mvp", projection * view * model);
 	//legoMesh.draw();
 	legoVBO.drawElements(GL_TRIANGLES, legoVBO.getNumIndices());
@@ -77,6 +81,7 @@ void ofApp::draw()
 		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
 		* glm::scale(glm::vec3(.5,.5, .5))
 	);
+	shader.setUniformMatrix4f("mv", view * model);
 	shader.setUniformMatrix4f("mvp", projection * view * model);
 	//swordMesh.draw();
 	swordVBO.drawElements(GL_TRIANGLES, swordVBO.getNumIndices());
