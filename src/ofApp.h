@@ -31,6 +31,10 @@ private:
 
 	ofShader shader;
 
+	// Thousands of models.
+	glm::mat4 legoModels[500];
+	glm::mat4 swordModels[500];
+
 	// Camera position.
 	glm::vec3 cameraPosition = glm::vec3(0, 0, 0);
 	glm::vec3 cameraFront = glm::vec3(0, 0, -1);
@@ -46,6 +50,7 @@ private:
 
 	// Helper functions.
 	void buildMesh(ofMesh& mesh, glm::vec3 pos, float width, float height);
+	float randf(float start, float end);
 	
 	// Shader reloading.
 	bool needsShaderReload { true };

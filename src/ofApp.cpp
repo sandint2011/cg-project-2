@@ -1,5 +1,6 @@
 #include "ofApp.h"
 #include <vector>
+#include <random>
 
 // .PLY foramt
 // -Z forward
@@ -23,6 +24,24 @@ void ofApp::setup()
 	swordVBO.setMesh(swordMesh, GL_STATIC_DRAW);
 
 	reloadShaders();
+
+	// Randomize 1000 models.
+	for (int i = 0; i < 500; i++)
+	{
+		const float s = 50; // Spread
+		
+		legoModels[i] = (
+			glm::translate(glm::vec3(randf(-s, s), randf(-s, s), randf(-s, s)))
+			* glm::rotate(glm::radians(randf(0.0, 360.0)), glm::vec3(1, 1, 1))
+			* glm::scale(glm::vec3(0.1, 0.1, 0.1))
+			);
+
+		swordModels[i] = (
+			glm::translate(glm::vec3(randf(-s, s), randf(-s, s), randf(-s, s)))
+			* glm::rotate(glm::radians(randf(0.0, 360.0)), glm::vec3(1, 1, 1))
+			* glm::scale(glm::vec3(.5, .5, .5))
+			);
+	}
 }
 
 //--------------------------------------------------------------
@@ -48,8 +67,9 @@ void ofApp::draw()
 {
 	const float nearClip = 0.1f;
 	const float farClip = 50.0f;
+
 	const float startFade = farClip * 0.85;
-	const float endFade = farClip - 1.0f;
+	const float endFade = farClip;
 	
 	float aspectRatio { static_cast<float>(ofGetViewportWidth()) / static_cast<float>(ofGetViewportHeight()) };
 	
@@ -64,27 +84,23 @@ void ofApp::draw()
 	shader.setUniform1f("startFade", startFade);
 	shader.setUniform1f("endFade", endFade);
 
-	// Lego.
-	model = (
-		glm::translate(glm::vec3(0, 0, -5))
-		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
-		* glm::scale(glm::vec3(0.1, 0.1, 0.1))
-	);
-	shader.setUniformMatrix4f("mv", view * model);
-	shader.setUniformMatrix4f("mvp", projection * view * model);
-	//legoMesh.draw();
-	legoVBO.drawElements(GL_TRIANGLES, legoVBO.getNumIndices());
+	// Draw the 1000 meshes.
+	for (int i = 0; i < 500; i++)
+	{
+		// Lego.
+		shader.setUniformMatrix4f("mv", view * legoModels[i]);
+		shader.setUniformMatrix4f("mvp", projection * view * legoModels[i]);
+		//legoMesh.draw();
+		legoVBO.drawElements(GL_TRIANGLES, legoVBO.getNumIndices());
 
-	// Sword.
-	model = (
-		glm::translate(glm::vec3(3, -2, -5))
-		* glm::rotate(glm::radians(45.0f), glm::vec3(1, 1, 1))
-		* glm::scale(glm::vec3(.5,.5, .5))
-	);
-	shader.setUniformMatrix4f("mv", view * model);
-	shader.setUniformMatrix4f("mvp", projection * view * model);
-	//swordMesh.draw();
-	swordVBO.drawElements(GL_TRIANGLES, swordVBO.getNumIndices());
+		// Sword.
+		shader.setUniformMatrix4f("mv", view * swordModels[i]);
+		shader.setUniformMatrix4f("mvp", projection * view * swordModels[i]);
+		//swordMesh.draw();
+		swordVBO.drawElements(GL_TRIANGLES, swordVBO.getNumIndices());
+	}
+
+	
 
 	shader.end();
 }
@@ -211,6 +227,14 @@ void ofApp::gotMessage(ofMessage msg)
 void ofApp::dragEvent(ofDragInfo dragInfo)
 { 
 
+}
+
+//--------------------------------------------------------------
+float ofApp::randf(float start = 0.0, float end = 1.0)
+{
+	float r = (float)(rand() % 100001) / 100000.0;
+	r = r * (end - start) + start;
+	return r;
 }
 
 //--------------------------------------------------------------
