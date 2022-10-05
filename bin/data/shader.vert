@@ -3,6 +3,9 @@
 layout (location = 0) in vec3 position;
 layout (location = 2) in vec3 normal;
 
+uniform float nearClip;
+uniform float farClip;
+
 uniform mat4 mvp;
 
 out vec3 fragNormal;

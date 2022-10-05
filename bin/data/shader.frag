@@ -2,6 +2,9 @@
 
 in vec3 fragNormal;
 
+uniform float nearClip;
+uniform float farClip;
+
 out vec4 outColor;
 
 void main()

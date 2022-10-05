@@ -46,14 +46,20 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+	const float nearClip = 0.1f;
+	const float farClip = 15.0f;
+	
 	float aspectRatio { static_cast<float>(ofGetViewportWidth()) / static_cast<float>(ofGetViewportHeight()) };
 	
 	// Movel-view-projection.
 	glm::mat4 model; // Set for each mesh individually.
 	glm::mat4 view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);;
-	glm::mat4 projection = glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 25.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(90.0f), aspectRatio, nearClip, farClip);
 
 	shader.begin();
+
+	shader.setUniform1f("nearClip", nearClip);
+	shader.setUniform1f("farClip", farClip);
 
 	// Lego.
 	model = (
