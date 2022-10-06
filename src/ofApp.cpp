@@ -118,37 +118,38 @@ void ofApp::keyPressed(int key)
 	}
 
 	const float cameraSpeed = 10;
+	const float sprint = 2.5;
 	const float dt = ofGetLastFrameTime();
 
 	// Forward / backward.
 	if (key == 'w')
-	{
 		cameraPosition += cameraFront * cameraSpeed * dt;
-	}
+	else if (key == 'W')
+		cameraPosition += cameraFront * cameraSpeed * sprint * dt;
 	if (key == 's')
-	{
 		cameraPosition -= cameraFront * cameraSpeed * dt;
-	}
+	else if (key == 'S')
+		cameraPosition -= cameraFront * cameraSpeed * sprint * dt;
 
 	// Left / right.
 	if (key == 'a')
-	{
 		cameraPosition -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed * dt;
-	}
+	else if (key == 'A')
+		cameraPosition -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed * sprint * dt;
 	if (key == 'd')
-	{
 		cameraPosition += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed * dt;
-	}
+	else if (key == 'D')
+		cameraPosition += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed * sprint * dt;
 
 	// Up / down.
 	if (key == 'q')
-	{
 		cameraPosition += cameraUp * cameraSpeed * dt;
-	}
+	else if (key == 'Q')
+		cameraPosition += cameraUp * cameraSpeed * sprint * dt;
 	if (key == 'e')
-	{
 		cameraPosition -= cameraUp * cameraSpeed * dt;
-	}
+	else if (key == 'E')
+		cameraPosition -= cameraUp * cameraSpeed * sprint * dt;
 }
 
 //--------------------------------------------------------------
