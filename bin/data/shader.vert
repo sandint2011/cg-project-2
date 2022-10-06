@@ -20,8 +20,5 @@ void main()
 	fragNormal = normal;
 
 	distanceFromCamera = abs(length((m * vec4(position, 1.0)).xyz - cameraPosition));
-	//distanceFromCamera = clamp(startFade, endFade, distanceFromCamera);
-	//distanceFromCamera = 1.0f;
-	//distanceFromCamera = distanceFromCamera / endFade + startFade;
 	distanceFromCamera = (distanceFromCamera - startFade) / (endFade - startFade);
 }
