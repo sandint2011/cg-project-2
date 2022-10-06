@@ -100,7 +100,7 @@ void ofApp::draw()
 		legoVBO.drawElements(GL_TRIANGLES, legoVBO.getNumIndices());
 
 		// Sword.
-		shader.setUniformMatrix4f("mv", view * swordModels[i]);
+		shader.setUniformMatrix4f("m", swordModels[i]);
 		shader.setUniformMatrix4f("mvp", projection * view * swordModels[i]);
 		//swordMesh.draw();
 		swordVBO.drawElements(GL_TRIANGLES, swordVBO.getNumIndices());
