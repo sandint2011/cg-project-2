@@ -21,4 +21,5 @@ void main()
 
 	distanceFromCamera = abs(length((m * vec4(position, 1.0)).xyz - cameraPosition));
 	distanceFromCamera = (distanceFromCamera - startFade) / (endFade - startFade);
+	distanceFromCamera = clamp(0.0, 1.0, distanceFromCamera);
 }

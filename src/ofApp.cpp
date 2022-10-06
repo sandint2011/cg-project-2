@@ -30,16 +30,22 @@ void ofApp::setup()
 	{
 		const float s = 75; // Spread
 		
+		float scale = randf(0.05, 0.2);
 		legoModels[i] = (
 			glm::translate(glm::vec3(randf(-s, s), randf(-s, s), randf(-s, s)))
-			* glm::rotate(glm::radians(randf(0.0, 360.0)), glm::vec3(1, 1, 1))
-			* glm::scale(glm::vec3(0.1, 0.1, 0.1))
+			* glm::rotate(glm::radians(randf(0.0, 360.0)), glm::vec3(1, 0, 0))
+			* glm::rotate(glm::radians(randf(0.0, 360.0)), glm::vec3(0, 1, 0))
+			* glm::rotate(glm::radians(randf(0.0, 360.0)), glm::vec3(0, 0, 1))
+			* glm::scale(glm::vec3(scale, scale, scale))
 			);
 
+		scale = randf(0.25, 0.75);
 		swordModels[i] = (
 			glm::translate(glm::vec3(randf(-s, s), randf(-s, s), randf(-s, s)))
-			* glm::rotate(glm::radians(randf(0.0, 360.0)), glm::vec3(1, 1, 1))
-			* glm::scale(glm::vec3(.5, .5, .5))
+			* glm::rotate(glm::radians(randf(0.0, 360.0)), glm::vec3(1, 0, 0))
+			* glm::rotate(glm::radians(randf(0.0, 360.0)), glm::vec3(0, 1, 0))
+			* glm::rotate(glm::radians(randf(0.0, 360.0)), glm::vec3(0, 0, 1))
+			* glm::scale(glm::vec3(scale, scale, scale))
 			);
 	}
 }
