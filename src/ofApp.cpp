@@ -68,7 +68,7 @@ void ofApp::draw()
 	const float nearClip = 0.1f;
 	const float farClip = 50.0f;
 
-	const float startFade = farClip * 0.85;
+	const float startFade = farClip * 0.8;
 	const float endFade = farClip - 1.0f;
 	
 	float aspectRatio { static_cast<float>(ofGetViewportWidth()) / static_cast<float>(ofGetViewportHeight()) };
