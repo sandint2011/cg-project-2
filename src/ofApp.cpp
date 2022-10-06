@@ -88,7 +88,7 @@ void ofApp::draw()
 	for (int i = 0; i < 500; i++)
 	{
 		// Lego.
-		shader.setUniformMatrix4f("mv", view * legoModels[i]);
+		shader.setUniformMatrix4f("m", legoModels[i]);
 		shader.setUniformMatrix4f("mvp", projection * view * legoModels[i]);
 		//legoMesh.draw();
 		legoVBO.drawElements(GL_TRIANGLES, legoVBO.getNumIndices());

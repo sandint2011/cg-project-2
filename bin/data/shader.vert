@@ -8,7 +8,7 @@ uniform vec3 cameraPosition;
 uniform float startFade;
 uniform float endFade;
 
-uniform mat4 mv;
+uniform mat4 m;
 uniform mat4 mvp;
 
 out vec3 fragNormal;
@@ -19,7 +19,7 @@ void main()
 	gl_Position = mvp * vec4(position, 1.0);
 	fragNormal = normal;
 
-	distanceFromCamera = abs(length((mv * vec4(position, 1.0)).xyz - cameraPosition));
+	distanceFromCamera = abs(length((m * vec4(position, 1.0)).xyz - cameraPosition));
 	//distanceFromCamera = clamp(startFade, endFade, distanceFromCamera);
 	//distanceFromCamera = 1.0f;
 	//distanceFromCamera = distanceFromCamera / endFade + startFade;
