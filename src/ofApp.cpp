@@ -28,7 +28,7 @@ void ofApp::setup()
 	// Randomize 1000 models.
 	for (int i = 0; i < 500; i++)
 	{
-		const float s = 50; // Spread
+		const float s = 75; // Spread
 		
 		legoModels[i] = (
 			glm::translate(glm::vec3(randf(-s, s), randf(-s, s), randf(-s, s)))
@@ -66,10 +66,10 @@ void ofApp::update()
 void ofApp::draw()
 {
 	const float nearClip = 0.1f;
-	const float farClip = 50.0f;
+	const float farClip = 100.0f;
 
-	const float startFade = farClip * 0.8;
-	const float endFade = farClip - 1.0f;
+	const float startFade = farClip * 0.7f;
+	const float endFade = farClip * 0.9f;
 	
 	float aspectRatio { static_cast<float>(ofGetViewportWidth()) / static_cast<float>(ofGetViewportHeight()) };
 	
@@ -230,7 +230,11 @@ void ofApp::dragEvent(ofDragInfo dragInfo)
 //--------------------------------------------------------------
 float ofApp::randf(float start = 0.0, float end = 1.0)
 {
-	float r = (float)(rand() % 100001) / 100000.0;
+	//float r = (float)(rand() % 100001) / 100000.0;
+	//r = r * (end - start) + start;
+	//return r;
+
+	float r = ((float)rand()) / (float)RAND_MAX;
 	r = r * (end - start) + start;
 	return r;
 }
