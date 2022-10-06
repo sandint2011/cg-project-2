@@ -118,7 +118,7 @@ void ofApp::keyPressed(int key)
 	}
 
 	const float cameraSpeed = 10;
-	const float sprint = 2.5;
+	const float sprint = 5;
 	const float dt = ofGetLastFrameTime();
 
 	// Forward / backward.
