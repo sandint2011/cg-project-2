@@ -81,7 +81,7 @@ void ofApp::draw()
 	
 	// Movel-view-projection.
 	glm::mat4 model; // Set for each mesh individually.
-	glm::mat4 view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);;
+	glm::mat4 view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);
 	glm::mat4 projection = glm::perspective(glm::radians(90.0f), aspectRatio, nearClip, farClip);
 
 	shader.begin();
